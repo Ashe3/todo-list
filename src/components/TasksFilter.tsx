@@ -18,7 +18,7 @@ export const TasksFilter: FC<Props> = ({ setShowCompleted, showCompleted }) => (
         value="All"
         checked={showCompleted === 'all'}
         aria-checked={showCompleted === 'all'}
-        onClick={() => setShowCompleted('all')}
+        onChange={() => setShowCompleted('all')}
         className=""
       />
       <label className="ml-1" htmlFor="All">
@@ -34,7 +34,7 @@ export const TasksFilter: FC<Props> = ({ setShowCompleted, showCompleted }) => (
         value="Complete"
         checked={showCompleted == 'completed'}
         aria-checked={showCompleted == 'completed'}
-        onClick={() => setShowCompleted('completed')}
+        onChange={() => setShowCompleted('completed')}
       />
       <label htmlFor="Complete" className="ml-1">
         Complete
@@ -49,7 +49,7 @@ export const TasksFilter: FC<Props> = ({ setShowCompleted, showCompleted }) => (
         value="Incomplete"
         checked={showCompleted === 'uncompleted'}
         aria-checked={showCompleted === 'uncompleted'}
-        onClick={() => setShowCompleted('uncompleted')}
+        onChange={() => setShowCompleted('uncompleted')}
       />
       <label className="ml-1" htmlFor="Incomplete">
         Incomplete
