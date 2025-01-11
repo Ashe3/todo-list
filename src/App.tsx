@@ -1,7 +1,8 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { AddTask } from './components/AddTask';
 import { TasksList } from './components/TaskList';
 import { useLocalStorage } from './hooks/useLocalStorage';
+import { TasksFilter } from './components/TasksFilter';
 
 export interface Task {
   id: number;
@@ -9,8 +10,11 @@ export interface Task {
   isCompleted: boolean;
 }
 
+export type ShowCompleted = 'all' | 'completed' | 'uncompleted';
+
 const App = () => {
   const [tasks, setTasks] = useLocalStorage<Task[]>('tasks', []);
+  const [showCompleted, setShowCompleted] = useState('all' as ShowCompleted);
 
   const handleAddTask = useCallback(
     (text: string) =>
@@ -41,8 +45,13 @@ const App = () => {
     <div className="flex flex-col items-center pt-5 h-screen gap-4">
       <h1 className="text-9xl font-black text-gray-400">TodoList</h1>
       <AddTask onAdd={handleAddTask} />
+      <TasksFilter
+        showCompleted={showCompleted}
+        setShowCompleted={setShowCompleted}
+      />
       <TasksList
         tasks={tasks}
+        showCompleted={showCompleted}
         onDelete={handleDeleteTask}
         onComplete={handleCompoteTask}
       />
