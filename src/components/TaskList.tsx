@@ -16,13 +16,15 @@ export const TasksList: FC<Props> = ({ tasks, onDelete, onComplete }) => {
         .map(({ text, id, isCompleted }) => (
           <li
             key={`task-${id}`}
-            className="flex items-center justify-between gap-4 p-4 bg-blue-100 m-1 rounded-md"
+            className={`flex items-center justify-between gap-4 p-4 bg-blue-100 m-1 rounded-md ${
+              isCompleted && 'bg-green-100'
+            }`}
           >
             <input
               aria-checked={isCompleted}
               type="checkbox"
               className="h-5 w-5 scale-150 ml-2"
-              onClick={() => onComplete(id)}
+              onChange={() => onComplete(id)}
             />
             <span style={{ maxWidth: '65%' }} className="break-words">
               {text}

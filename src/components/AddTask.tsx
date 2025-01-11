@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 
 interface Props {
   onAdd: (text: string) => void;
@@ -7,26 +7,34 @@ interface Props {
 export const AddTask: FC<Props> = ({ onAdd }) => {
   const [inputState, setInputState] = useState<string>('');
 
-  const handleAddTask = () => {
+  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     onAdd(inputState);
     setInputState('');
   };
 
   return (
-    <div>
+    <form
+      role="form"
+      aria-required="true"
+      onSubmit={handleFormSubmit}
+      className="flex gap-2"
+    >
       <input
+        aria-label="Task description"
         type="text"
         value={inputState}
+        placeholder="Add task here..."
         onChange={(e) => setInputState(e.target.value)}
         className="border border-gray-300 rounded-md p-2 outline-none"
       />
       <button
+        aria-label="Add new task"
         disabled={!inputState.length}
-        onClick={() => handleAddTask()}
         className="bg-blue-500 text-white p-2 rounded-md ml-2 hover:bg-blue-600 disabled:bg-blue-300 disabled:pointer-events-none"
       >
         Add Task
       </button>
-    </div>
+    </form>
   );
 };
