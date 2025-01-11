@@ -9,26 +9,33 @@ interface Props {
 
 export const TasksList: FC<Props> = ({ tasks, onDelete, onComplete }) => {
   return (
-    <div className="w-1/3">
-      {tasks.map(({ text, id }) => (
-        <div
-          key={`task-${id}`}
-          className="flex items-center justify-between gap-4 p-4 bg-blue-100 m-1 rounded-md"
-        >
-          <input
-            type="checkbox"
-            className="size-5 scale-150"
-            onClick={() => onComplete(id)}
-          />
-          <span>{text}</span>
-          <button
-            className="rounded-md bg-red-500 text-white p-2"
-            onClick={() => onDelete(id)}
+    <ul className="w-full pl-32 pr-32">
+      {tasks
+        .slice()
+        .reverse()
+        .map(({ text, id, isCompleted }) => (
+          <li
+            key={`task-${id}`}
+            className="flex items-center justify-between gap-4 p-4 bg-blue-100 m-1 rounded-md"
           >
-            Delete
-          </button>
-        </div>
-      ))}
-    </div>
+            <input
+              aria-checked={isCompleted}
+              type="checkbox"
+              className="h-5 w-5 scale-150 ml-2"
+              onClick={() => onComplete(id)}
+            />
+            <span style={{ maxWidth: '65%' }} className="break-words">
+              {text}
+            </span>
+            <button
+              aria-label="Delete Task"
+              className="rounded-md bg-red-500 text-white p-2"
+              onClick={() => onDelete(id)}
+            >
+              Delete
+            </button>
+          </li>
+        ))}
+    </ul>
   );
 };
