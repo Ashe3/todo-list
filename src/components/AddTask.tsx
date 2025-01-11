@@ -1,7 +1,16 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
-export const AddTask = () => {
+interface Props {
+  onAdd: (text: string) => void;
+}
+
+export const AddTask: FC<Props> = ({ onAdd }) => {
   const [inputState, setInputState] = useState<string>('');
+
+  const handleAddTask = () => {
+    onAdd(inputState);
+    setInputState('');
+  };
 
   return (
     <div>
@@ -13,7 +22,7 @@ export const AddTask = () => {
       />
       <button
         disabled={!inputState.length}
-        onClick={() => console.log(inputState)}
+        onClick={() => handleAddTask()}
         className="bg-blue-500 text-white p-2 rounded-md ml-2 hover:bg-blue-600 disabled:bg-blue-300 disabled:pointer-events-none"
       >
         Add Task
