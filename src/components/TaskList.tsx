@@ -46,6 +46,7 @@ export const TasksList: FC<Props> = ({
           >
             <input
               aria-checked={isCompleted}
+              checked={isCompleted}
               type="checkbox"
               className="h-5 w-5 scale-150 ml-2"
               onChange={() => onComplete(id)}
