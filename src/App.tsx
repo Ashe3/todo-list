@@ -1,6 +1,7 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { AddTask } from './components/AddTask';
 import { TasksList } from './components/TaskList';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 export interface Task {
   id: number;
@@ -9,7 +10,7 @@ export interface Task {
 }
 
 const App = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useLocalStorage<Task[]>('tasks', []);
 
   const handleAddTask = useCallback(
     (text: string) =>
@@ -17,7 +18,7 @@ const App = () => {
         ...tasks,
         { id: Date.now(), text, isCompleted: false },
       ]),
-    []
+    [setTasks]
   );
 
   const handleCompoteTask = useCallback(
@@ -27,13 +28,13 @@ const App = () => {
           task.id === id ? { ...task, isCompleted: !task.isCompleted } : task
         )
       ),
-    []
+    [setTasks]
   );
 
   const handleDeleteTask = useCallback(
     (id: number) =>
       setTasks((tasks) => tasks.filter(({ id: taskId }) => taskId !== id)),
-    []
+    [setTasks]
   );
 
   return (

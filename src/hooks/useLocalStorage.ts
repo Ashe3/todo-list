@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 
 export const useLocalStorage = <T>(key: string, initialValue: T) => {
   const storedValue = localStorage.getItem(key);
@@ -6,9 +6,12 @@ export const useLocalStorage = <T>(key: string, initialValue: T) => {
 
   const [value, setValue] = useState<T>(parsedValue);
 
-  const setStoredValue = (newValue: T) => {
+  const setStoredValue = (newValue: SetStateAction<T>) => {
     setValue(newValue);
-    localStorage.setItem(key, JSON.stringify(newValue));
+
+    const valueToStore =
+      newValue instanceof Function ? newValue(value) : newValue;
+    localStorage.setItem(key, JSON.stringify(valueToStore));
   };
 
   return [value, setStoredValue] as const;
