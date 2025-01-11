@@ -3,6 +3,7 @@ import { AddTask } from './components/AddTask';
 import { TasksList } from './components/TaskList';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { TasksFilter } from './components/TasksFilter';
+import { ThemeSwitcher } from './components/ThemeSwitcher';
 
 export interface Task {
   id: number;
@@ -42,20 +43,25 @@ const App = () => {
   );
 
   return (
-    <div className="flex flex-col items-center pt-5 h-screen gap-4">
-      <h1 className="text-9xl font-black text-gray-400">TodoList</h1>
-      <AddTask onAdd={handleAddTask} />
-      <TasksFilter
-        showCompleted={showCompleted}
-        setShowCompleted={setShowCompleted}
-      />
-      <TasksList
-        tasks={tasks}
-        showCompleted={showCompleted}
-        onDelete={handleDeleteTask}
-        onComplete={handleCompoteTask}
-      />
-    </div>
+    <>
+      <header>
+        <ThemeSwitcher />
+      </header>
+      <div className="flex flex-col items-center pt-5 h-screen gap-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+        <h1 className="text-9xl font-black text-gray-400">TodoList</h1>
+        <AddTask onAdd={handleAddTask} />
+        <TasksFilter
+          showCompleted={showCompleted}
+          setShowCompleted={setShowCompleted}
+        />
+        <TasksList
+          tasks={tasks}
+          showCompleted={showCompleted}
+          onDelete={handleDeleteTask}
+          onComplete={handleCompoteTask}
+        />
+      </div>
+    </>
   );
 };
 

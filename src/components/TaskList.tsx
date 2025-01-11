@@ -34,7 +34,9 @@ export const TasksList: FC<Props> = ({
           <motion.li
             key={`task-${id}`}
             className={`flex items-center justify-between gap-4 p-4  m-1 rounded-md transition-colors duration-500 ${
-              isCompleted ? 'bg-green-100' : 'bg-blue-100'
+              isCompleted
+                ? 'bg-green-100 dark:bg-green-800'
+                : 'bg-blue-100 dark:bg-blue-800'
             }`}
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
@@ -48,7 +50,7 @@ export const TasksList: FC<Props> = ({
               className="h-5 w-5 scale-150 ml-2"
               onChange={() => onComplete(id)}
             />
-            <span style={{ maxWidth: '65%' }} className="break-words">
+            <span style={{ maxWidth: '65%' }} className="break-words ">
               {text}
             </span>
             <button

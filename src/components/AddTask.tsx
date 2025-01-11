@@ -26,7 +26,7 @@ export const AddTask: FC<Props> = ({ onAdd }) => {
         value={inputState}
         placeholder="Add task here..."
         onChange={(e) => setInputState(e.target.value)}
-        className="border border-gray-300 rounded-md p-2 outline-none"
+        className="border border-gray-300 rounded-md p-2 outline-none dark:text-black"
       />
       <button
         aria-label="Add new task"
